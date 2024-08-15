@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.380.0](https://github.com/windmill-labs/windmill/compare/v1.379.4...v1.380.0) (2024-08-14)
+
+
+### Features
+
+* opt-in job args in audit logs ([#4241](https://github.com/windmill-labs/windmill/issues/4241)) ([0cce276](https://github.com/windmill-labs/windmill/commit/0cce27636d128972730427a33b7be954d00210dc))
+* recoverable error handlers ([e0857c7](https://github.com/windmill-labs/windmill/commit/e0857c7178ac9657173e9ed597d072130e41fe47))
+* togglable continue on disapproval/timeout of approvals ([be90b3e](https://github.com/windmill-labs/windmill/commit/be90b3e2192cdae88e38fd7e269ad8abc8f7c054))
+
+## [1.379.4](https://github.com/windmill-labs/windmill/compare/v1.379.3...v1.379.4) (2024-08-14)
+
+
+### Bug Fixes
+
+* add missing change for better key renewal ([#4237](https://github.com/windmill-labs/windmill/issues/4237)) ([f88efc2](https://github.com/windmill-labs/windmill/commit/f88efc2380bf5b055b2633b24cb94fc46e6cdca5))
+* fix transformer issue after proxy change for apps ([ad69876](https://github.com/windmill-labs/windmill/commit/ad698768e8fdbcc4a90f138f74ceee20d2d68a9b))
+* handle time with tz col type in pg ([#4239](https://github.com/windmill-labs/windmill/issues/4239)) ([c09f078](https://github.com/windmill-labs/windmill/commit/c09f078928fb9f4b52df641580505d98bb728aa0))
+* use job timeout for snowflake timeout ([#4240](https://github.com/windmill-labs/windmill/issues/4240)) ([3bd461f](https://github.com/windmill-labs/windmill/commit/3bd461ffa1fcbe19c9007b1b15970be21cff08ef))
+
 ## [1.379.3](https://github.com/windmill-labs/windmill/compare/v1.379.2...v1.379.3) (2024-08-13)
 
 
