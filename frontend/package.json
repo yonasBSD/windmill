@@ -1,6 +1,6 @@
 {
 	"name": "windmill-components",
-	"version": "1.388.0",
+	"version": "1.389.0",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
@@ -50,7 +50,7 @@
 		"simple-svelte-autocomplete": "^2.5.1",
 		"style-to-object": "^0.4.1",
 		"stylelint-config-recommended": "^13.0.0",
-		"svelte": "^4.0.0",
+		"svelte": "^4.2.19",
 		"svelte-awesome-color-picker": "^3.0.4",
 		"svelte-check": "^3.4.3",
 		"svelte-floating-ui": "^1.5.8",
@@ -147,7 +147,7 @@
 		"windmill-parser-wasm-ts": "^1.382.2",
 		"windmill-sql-datatype-parser-wasm": "^1.318.0",
 		"y-monaco": "^0.1.4",
-		"y-websocket": "^1.5.0",
+		"y-websocket": "^1.5.4",
 		"yaml": "^2.3.4",
 		"yjs": "^13.6.7"
 	},
