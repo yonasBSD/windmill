@@ -1161,16 +1161,10 @@ pub fn filter_list_queue_query(
         sqlb.and_where_eq("parent_job", "?".bind(pj));
     }
     if let Some(dt) = &lq.started_before {
-        sqlb.and_where_le(
-            "started_at",
-            format!("to_timestamp({}  / 1000.0)", dt.timestamp_millis()),
-        );
+        sqlb.and_where_le("started_at", "?".bind(&dt.to_rfc3339()));
     }
     if let Some(dt) = &lq.started_after {
-        sqlb.and_where_ge(
-            "started_at",
-            format!("to_timestamp({}  / 1000.0)", dt.timestamp_millis()),
-        );
+        sqlb.and_where_ge("started_at", "?".bind(&dt.to_rfc3339()));
     }
     if let Some(fs) = &lq.is_flow_step {
         sqlb.and_where_eq("is_flow_step", fs);
@@ -1182,16 +1176,10 @@ pub fn filter_list_queue_query(
     }
 
     if let Some(dt) = &lq.created_before {
-        sqlb.and_where_le(
-            "created_at",
-            format!("to_timestamp({}  / 1000.0)", dt.timestamp_millis()),
-        );
+        sqlb.and_where_le("created_at", "?".bind(&dt.to_rfc3339()));
     }
     if let Some(dt) = &lq.created_after {
-        sqlb.and_where_ge(
-            "created_at",
-            format!("to_timestamp({}  / 1000.0)", dt.timestamp_millis()),
-        );
+        sqlb.and_where_ge("created_at", "?".bind(&dt.to_rfc3339()));
     }
 
     if let Some(dt) = &lq.created_or_started_after {
@@ -4664,6 +4652,13 @@ pub fn filter_list_completed_query(
             .on_eq("id", "outstanding_wait_time.job_id");
     }
 
+    if let Some(label) = &lq.label {
+        let mut wh = format!("result->'wm_labels' ? ");
+        wh.push_str(&format!("'{}'", &label.replace("'", "''")));
+        sqlb.and_where("result ? 'wm_labels'");
+        sqlb.and_where(&wh);
+    }
+
     if w_id != "admins" || !lq.all_workspaces.is_some_and(|x| x) {
         sqlb.and_where_eq("workspace_id", "?".bind(&w_id));
     }
@@ -4694,36 +4689,28 @@ pub fn filter_list_completed_query(
         sqlb.and_where_eq("parent_job", "?".bind(pj));
     }
     if let Some(dt) = &lq.started_before {
-        sqlb.and_where_le(
-            "started_at",
-            format!("to_timestamp({}  / 1000.0)", dt.timestamp_millis()),
-        );
+        sqlb.and_where_le("started_at", "?".bind(&dt.to_rfc3339()));
     }
     if let Some(dt) = &lq.started_after {
-        sqlb.and_where_ge(
-            "started_at",
-            format!("to_timestamp({}  / 1000.0)", dt.timestamp_millis()),
-        );
+        sqlb.and_where_ge("started_at", "?".bind(&dt.to_rfc3339()));
     }
 
     if let Some(dt) = &lq.created_or_started_before {
-        sqlb.and_where_le(
-            "started_at",
-            format!("to_timestamp({}  / 1000.0)", dt.timestamp_millis()),
-        );
+        sqlb.and_where_le("started_at", "?".bind(&dt.to_rfc3339()));
     }
     if let Some(dt) = &lq.created_or_started_after {
-        sqlb.and_where_ge(
-            "started_at",
-            format!("to_timestamp({}  / 1000.0)", dt.timestamp_millis()),
-        );
+        sqlb.and_where_ge("started_at", "?".bind(&dt.to_rfc3339()));
+    }
+
+    if let Some(dt) = &lq.created_before {
+        sqlb.and_where_le("created_at", "?".bind(&dt.to_rfc3339()));
+    }
+    if let Some(dt) = &lq.created_after {
+        sqlb.and_where_ge("created_at", "?".bind(&dt.to_rfc3339()));
     }
 
     if let Some(dt) = &lq.created_or_started_after_completed_jobs {
-        sqlb.and_where_ge(
-            "started_at",
-            format!("to_timestamp({}  / 1000.0)", dt.timestamp_millis()),
-        );
+        sqlb.and_where_ge("started_at", "?".bind(&dt.to_rfc3339()));
     }
 
     if let Some(sk) = &lq.is_skipped {
@@ -4750,13 +4737,6 @@ pub fn filter_list_completed_query(
 
     if let Some(result) = &lq.result {
         sqlb.and_where("result @> ?".bind(&result.replace("'", "''")));
-    }
-
-    if let Some(label) = &lq.label {
-        let mut wh = format!("result->'wm_labels' ? ");
-        wh.push_str(&format!("'{}'", &label.replace("'", "''")));
-        sqlb.and_where(&wh);
-        sqlb.and_where("result ? 'wm_labels'");
     }
 
     if lq.is_not_schedule.unwrap_or(false) {
