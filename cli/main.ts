@@ -14,8 +14,8 @@ import workspace, { getActiveWorkspace } from "./workspace.ts";
 import resource from "./resource.ts";
 import user from "./user.ts";
 import variable from "./variable.ts";
-import push from "./push.ts";
-import pull from "./pull.ts";
+import lgeacyPush from "./push.ts";
+import legacyPull from "./pull.ts";
 import hub from "./hub.ts";
 import folder from "./folder.ts";
 import schedule from "./schedule.ts";
@@ -27,6 +27,31 @@ import { GlobalOptions } from "./types.ts";
 import { OpenAPI } from "./deps.ts";
 import { getHeaders } from "./utils.ts";
 import { NpmProvider } from "./upgrade.ts";
+import { pull as hubPull } from "./hub.ts";
+import { pull, push } from "./sync.ts";
+import { add as workspaceAdd } from "./workspace.ts";
+
+export {
+  flow,
+  app,
+  script,
+  workspace,
+  resource,
+  user,
+  variable,
+  hub,
+  folder,
+  schedule,
+  sync,
+  instance,
+  dev,
+  lgeacyPush,
+  legacyPull,
+  hubPull,
+  pull,
+  push,
+  workspaceAdd,
+};
 
 // addEventListener("error", (event) => {
 //   if (event.error) {
@@ -35,8 +60,7 @@ import { NpmProvider } from "./upgrade.ts";
 //   }
 // });
 
-export const VERSION = "1.392.0";
-
+export const VERSION = "1.393.3";
 
 let command: any = new Command()
   .name("wmill")
@@ -57,6 +81,10 @@ let command: any = new Command()
   .globalOption(
     "--token <token:string>",
     "Specify an API token. This will override any stored token."
+  )
+  .globalOption(
+    "--base-url <baseUrl:string>",
+    "Specify the base URL of the API. If used, --token and --workspace are required and no local remote/workspace already set will be used."
   )
   .env(
     "HEADERS <headers:string>",
@@ -115,7 +143,7 @@ let command: any = new Command()
   )
   .command("completions", new CompletionsCommand());
 if (Number.parseInt(VERSION.replace("v", "").replace(".", "")) > 1700) {
-  command = command.command("push", push).command("pull", pull);
+  command = command.command("push", lgeacyPush).command("pull", legacyPull);
 }
 
 export let showDiffs = false;
@@ -159,25 +187,27 @@ async function main() {
   }
 }
 
-//@ts-ignore
-if (esMain.default(import.meta)) {
-  main();
-  // test1();
-  // test2();
-  // module was not imported but called directly
+function isMain() {
+  // dnt-shim-ignore
+  const { Deno } = globalThis as any;
+
+  const isDeno = Deno != undefined;
+
+  if (isDeno) {
+    const isMain = import.meta.main;
+    if (isMain) {
+      log.warn(
+        "Using the deno runtime for the Windmill CLI is deprecated, you can now use node: deno uninstall wmill && npm install -g windmill-cli"
+      );
+    }
+    return isMain;
+  } else {
+    //@ts-ignore
+    return esMain.default(import.meta);
+  }
 }
-
-// function test1() {
-//   // dnt-shim-ignore deno-lint-ignore no-explicit-any
-//   const { Deno, process } = globalThis as any;
-
-//   console.log(Deno);
-// }
-
-// function test2() {
-//   const { Deno, process } = globalThis as any;
-
-//   console.log(Deno);
-// }
+if (isMain()) {
+  main();
+}
 
 export default command;

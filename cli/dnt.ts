@@ -5,6 +5,7 @@ await emptyDir("./npm");
 
 await build({
   entryPoints: [
+    "main.ts",
     {
       kind: "bin",
       name: "wmill", // command name
@@ -16,14 +17,27 @@ await build({
     // see JS docs for overview and more options
     deno: true,
   },
-  typeCheck: false,
   scriptModule: false,
+  filterDiagnostic(diagnostic) {
+    if (
+      diagnostic.file?.fileName.includes("node_modules/") ||
+      diagnostic.file?.fileName.includes("src/deps/") ||
+      diagnostic.file?.fileName.includes("src/deps.ts") ||
+      diagnostic.file?.fileName.includes("src/utils.ts")
+    ) {
+      return false; // ignore all diagnostics in this file
+    }
+    // console.log(diagnostic.file?.fileName);
+    return true;
+  },
+  declaration: "separate",
   package: {
     // package.json properties
     name: "windmill-cli",
     version: VERSION,
     description: "CLI for Windmill",
     license: "Apache 2.0",
+    main: "esm/main.js",
     repository: {
       type: "git",
       url: "git+https://github.com/windmill-labs/windmill.git",

@@ -1,5 +1,33 @@
 # Changelog
 
+## [1.393.3](https://github.com/windmill-labs/windmill/compare/v1.393.2...v1.393.3) (2024-09-07)
+
+
+### Bug Fixes
+
+* **cli:** guide users to migrate to node version of the CLI ([3998ecb](https://github.com/windmill-labs/windmill/commit/3998ecbf7b5c1c1e4ed9f6fb8911e1e18317f815))
+
+## [1.393.2](https://github.com/windmill-labs/windmill/compare/v1.393.1...v1.393.2) (2024-09-07)
+
+
+### Bug Fixes
+
+* **cli:** add --base-url option to add possibility of setting every arg without needing to add a workspace first ([1e813b2](https://github.com/windmill-labs/windmill/commit/1e813b26103098c69ac7880876611954b0ff6996))
+
+## [1.393.1](https://github.com/windmill-labs/windmill/compare/v1.393.0...v1.393.1) (2024-09-07)
+
+
+### Bug Fixes
+
+* fix CLI publishing ([65cddaf](https://github.com/windmill-labs/windmill/commit/65cddaf9752722b1a9489d54e646e270ce742e1d))
+
+## [1.393.0](https://github.com/windmill-labs/windmill/compare/v1.392.0...v1.393.0) (2024-09-07)
+
+
+### Features
+
+* make CLI node compatible ([#4347](https://github.com/windmill-labs/windmill/issues/4347)) ([9b4c598](https://github.com/windmill-labs/windmill/commit/9b4c59809c2b30d419168e624b83379023c5cb5f))
+
 ## [1.392.0](https://github.com/windmill-labs/windmill/compare/v1.391.0...v1.392.0) (2024-09-06)
 
 

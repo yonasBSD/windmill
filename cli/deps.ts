@@ -29,6 +29,7 @@ export { stringify as yamlStringify, parse as yamlParse } from "jsr:@std/yaml";
 
 // other
 
+export * as Diff from "npm:diff";
 export { minimatch } from "npm:minimatch";
 export { default as JSZip } from "npm:jszip@3.7.1";
 
@@ -37,5 +38,4 @@ export * as http from "node:http";
 export { WebSocketServer, WebSocket } from "npm:ws";
 
 export * as open from "npm:open";
-export { default as gitignore_parser } from "npm:gitignore-parser";
 export * as esMain from "npm:es-main";
