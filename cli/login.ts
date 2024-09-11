@@ -1,5 +1,5 @@
 import { GlobalOptions } from "./types.ts";
-import { colors, getAvailablePort, log, open, Secret, Select } from "./deps.ts";
+import { colors, getPort, log, open, Secret, Select } from "./deps.ts";
 import * as http from "node:http";
 
 export async function loginInteractive(remote: string) {
@@ -27,7 +27,6 @@ export async function loginInteractive(remote: string) {
   } else {
     token = await Secret.prompt("Enter your token");
   }
-
   return token;
 }
 
@@ -45,8 +44,12 @@ export async function tryGetLoginInfo(
 export async function browserLogin(
   baseUrl: string
 ): Promise<string | undefined> {
-  const env = Deno.env.get("TOKEN_PORT");
-  const port = env ? Number(env) : await getAvailablePort();
+  const env =
+    Deno.env.get("TOKEN_PORT") != undefined
+      ? parseInt(Deno.env.get("TOKEN_PORT")!)
+      : undefined;
+  const port = await getPort.default({ port: env });
+
   if (port == undefined) {
     log.info(colors.red.underline("failed to aquire port"));
     return undefined;
@@ -101,7 +104,11 @@ export async function browserLogin(
     log.info(`Login by going to ${url}`);
 
     try {
-      open.openApp(open.apps.browser, { arguments: [url] });
+      open.openApp(open.apps.browser, { arguments: [url] }).catch((error) => {
+        console.error(
+          `Failed to open browser, please navigate to ${url}, error: ${error}`
+        );
+      });
 
       log.info("Opened browser for you");
     } catch (error) {

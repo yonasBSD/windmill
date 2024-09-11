@@ -3,7 +3,7 @@ import {
   SEP,
   WebSocketServer,
   express,
-  getAvailablePort,
+  getPort,
   http,
   log,
   open,
@@ -81,7 +81,7 @@ async function dev(opts: GlobalOptions & SyncOptions) {
   }
 
   async function startApp() {
-    const app = express();
+    const app = express.default();
     const server = http.createServer(app);
     const wss = new WebSocketServer({ server });
 
@@ -117,14 +117,18 @@ async function dev(opts: GlobalOptions & SyncOptions) {
     });
 
     // Start the server
-    const port = await getAvailablePort({ preferredPort: 3001 });
+    const port = await getPort.default({ port: 3001 });
     const url =
       `${workspace.remote}scripts/dev?workspace=${workspace.workspaceId}&local=true` +
       (port === PORT ? "" : `&port=${port}`);
 
     console.log(`Go to ${url}`);
     try {
-      open.openApp(open.apps.browser, { arguments: [url] });
+      open.openApp(open.apps.browser, { arguments: [url] }).catch((error) => {
+        console.error(
+          `Failed to open browser, please navigate to ${url}, error: ${error}`
+        );
+      });
       console.log("Opened browser for you");
     } catch (error) {
       console.error(
