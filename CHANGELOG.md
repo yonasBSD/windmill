@@ -1,5 +1,29 @@
 # Changelog
 
+## [1.394.3](https://github.com/windmill-labs/windmill/compare/v1.394.2...v1.394.3) (2024-09-11)
+
+
+### Bug Fixes
+
+* improve runFlowAsync and run_flow_async default behavior + time formatting of scheduled for ([51e6f36](https://github.com/windmill-labs/windmill/commit/51e6f36e13b251f01ddb8514de0d6d1a2bcd2244))
+
+## [1.394.2](https://github.com/windmill-labs/windmill/compare/v1.394.1...v1.394.2) (2024-09-11)
+
+
+### Bug Fixes
+
+* add tag_override for script in flows ([0e64380](https://github.com/windmill-labs/windmill/commit/0e6438047369e0c074e93246d627ecf06c0c78d5))
+* graceful worker exits for same worker jobs ([#4371](https://github.com/windmill-labs/windmill/issues/4371)) ([042a2bf](https://github.com/windmill-labs/windmill/commit/042a2bf917173a540aab7251a559c72c9c687228))
+
+## [1.394.1](https://github.com/windmill-labs/windmill/compare/v1.394.0...v1.394.1) (2024-09-11)
+
+
+### Bug Fixes
+
+* default success handler key can be viewed by anyone in the workspace ([c44e0d3](https://github.com/windmill-labs/windmill/commit/c44e0d37426599186a890f11a079bf2c2030e32d))
+* handle better same_worker flow monitor ([4720237](https://github.com/windmill-labs/windmill/commit/4720237091d4f41d85d9a0f177428d7c3e6d917e))
+* same worker is transitive on nested flows ([decb487](https://github.com/windmill-labs/windmill/commit/decb4873f1d6080f90c1fb2a8dac70423ae2d11a))
+
 ## [1.394.0](https://github.com/windmill-labs/windmill/compare/v1.393.4...v1.394.0) (2024-09-10)
 
 
