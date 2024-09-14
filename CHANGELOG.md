@@ -1,5 +1,30 @@
 # Changelog
 
+## [1.394.5](https://github.com/windmill-labs/windmill/compare/v1.394.4...v1.394.5) (2024-09-13)
+
+
+### Bug Fixes
+
+* add filename to s3 upload ([11ca14a](https://github.com/windmill-labs/windmill/commit/11ca14a2d32155e215c0d14d485e2c4048e5c66e))
+* parquet renderer display number of rows" ([#4389](https://github.com/windmill-labs/windmill/issues/4389)) ([51cf420](https://github.com/windmill-labs/windmill/commit/51cf420272cce1948dc4295b587f5037455c4eba))
+* queue metrics graph ([#4388](https://github.com/windmill-labs/windmill/issues/4388)) ([af85d49](https://github.com/windmill-labs/windmill/commit/af85d4936ddd01b390976c9989f3e4e72da3d01e))
+* update internal hub scritps to bun ([#4384](https://github.com/windmill-labs/windmill/issues/4384)) ([f140daf](https://github.com/windmill-labs/windmill/commit/f140daf4dc18db0a11bf478451aa57ae4698fd32))
+
+## [1.394.4](https://github.com/windmill-labs/windmill/compare/v1.394.3...v1.394.4) (2024-09-13)
+
+
+### Bug Fixes
+
+* **frontend:** prompt fix-AI not to rename existing variables ([#4382](https://github.com/windmill-labs/windmill/issues/4382)) ([03a2eae](https://github.com/windmill-labs/windmill/commit/03a2eae49ac5b7c858e642e9f264beebbb2e9b34))
+* **frontend:** table footer display on safari ([#4377](https://github.com/windmill-labs/windmill/issues/4377)) ([93e5ba1](https://github.com/windmill-labs/windmill/commit/93e5ba1d16fcf52dea54ae4b4d7e5b02a899d0bd))
+* **image:** correctly publish windmill-full image ([bde3339](https://github.com/windmill-labs/windmill/commit/bde3339de53ad8430df6d7add6cfb00b4eb895c6))
+* improve app select propagation to list inputs in apps ([fb4c8d2](https://github.com/windmill-labs/windmill/commit/fb4c8d266a359af1ada4541e21b68bac9cb268a8))
+* improve password input for resources editor ([5bef077](https://github.com/windmill-labs/windmill/commit/5bef077480f1d708c507d943abcb4d36de084175))
+* multiple secret picker candidates in resource adder ([f222645](https://github.com/windmill-labs/windmill/commit/f222645dcead8f6608b81be36c683df679a5ae1c))
+* tighten inputs for granular kinds ([#4379](https://github.com/windmill-labs/windmill/issues/4379)) ([ff08b5a](https://github.com/windmill-labs/windmill/commit/ff08b5a9b5606f02228d0b54b45d422704fed3cb))
+* tighten number input validity if min or max is set ([7c16f2c](https://github.com/windmill-labs/windmill/commit/7c16f2cef4943a5d02e2bc6163761d80618aeae4))
+* timeout in pg executor on postgresql connection after 20s ([4dc9ca7](https://github.com/windmill-labs/windmill/commit/4dc9ca7f4e1477c087fe4f9bf6ea03fbcc99099c))
+
 ## [1.394.3](https://github.com/windmill-labs/windmill/compare/v1.394.2...v1.394.3) (2024-09-11)
 
 
