@@ -70,7 +70,10 @@ use windmill_common::{
     oauth2::HmacSha256,
     scripts::{ScriptHash, ScriptLang},
     users::username_to_permissioned_as,
-    utils::{not_found_if_none, now_from_db, paginate, paginate_without_limits, require_admin, Pagination, StripPath},
+    utils::{
+        not_found_if_none, now_from_db, paginate, paginate_without_limits, require_admin,
+        Pagination, StripPath,
+    },
 };
 
 #[cfg(all(feature = "enterprise", feature = "parquet"))]
@@ -4193,10 +4196,10 @@ async fn run_dependencies_job(
             JsonRawValue::from_string("true".to_string()).unwrap(),
         );
         if language == ScriptLang::Bun {
-            let annotation = windmill_common::worker::get_annotation_ts(&raw_code);
+            let annotation = windmill_common::worker::TypeScriptAnnotations::parse(&raw_code);
             hm.insert(
                 "npm_mode".to_string(),
-                JsonRawValue::from_string(annotation.npm_mode.to_string()).unwrap(),
+                JsonRawValue::from_string(annotation.npm.to_string()).unwrap(),
             );
         }
         (PushArgs { extra: Some(hm), args: &ehm }, deps)
@@ -4751,7 +4754,6 @@ async fn get_job_update(
                 &w_id,
                  job_id,
                 "progress_perc"
-                
             )
             .fetch_optional(&db)
             .await?.and_then(|inner| inner)
